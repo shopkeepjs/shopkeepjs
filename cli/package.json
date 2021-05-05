@@ -1,0 +1,22 @@
+{
+  "name": "shopkeep",
+  "version": "1.0.0",
+  "description": "A global CLI tool for starting any project",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "author": "Chancellor H. <me@chancellor.tech> (https://chancellor.tech)",
+  "scripts": {
+    "lint": "eslint src/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^8.0.0",
+    "project-name-generator": "^2.1.9"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}

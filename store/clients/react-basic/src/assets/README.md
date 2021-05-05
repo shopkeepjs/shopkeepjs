@@ -1,0 +1,1 @@
+This directory is for any external assets - SVG, Images, Audio Files, etc

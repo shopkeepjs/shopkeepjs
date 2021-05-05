@@ -1,0 +1,1 @@
+This is for any logic that will be used throughout the application - things such as REST functions, or repeatable functions

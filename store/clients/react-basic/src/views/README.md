@@ -1,0 +1,1 @@
+This is for the various 'views' you might make in the application - think of these as different routes or slash locations
