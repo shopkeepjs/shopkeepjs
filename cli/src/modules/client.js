@@ -1,67 +1,19 @@
 const inquirer = require('inquirer');
+const { copyFromGit } = require('../helpers');
 
-let responses = {};
-
-const client = async () =>
-  inquirer.prompt([
+const client = async (projectName) => {
+  const responses = await inquirer.prompt([
     {
       type: 'list',
-      name: 'clientService',
+      name: 'packageName',
       message: 'Which frontend package would you like?',
-      choices: ['Vanilla', 'React'],
+      choices: [
+        { name: 'Vanilla', value: 'vanilla' },
+        { name: 'React', value: 'react-basic' },
+      ],
     },
   ]);
-
-// const react = async () => {
-//   const test = {
-//     ...(await inquirer.prompt([
-//       {
-//         type: 'checkbox',
-//         name: 'services',
-//         message: 'What react services will you need?',
-//         choices: [
-//           { name: 'React Router' },
-//           { name: 'Apollo' },
-//           { name: 'Redux' },
-//           { name: 'React Forms' },
-//         ],
-//       },
-//     ])),
-//   };
-//   return test;
-// };
-
-// const client = async () => {
-//   responses = {
-//     ...(await inquirer.prompt([
-//       {
-//         type: 'list',
-//         name: 'framework',
-//         message: 'Which framework are you using?',
-//         choices: [{ name: 'Vanilla' }, { name: 'React' }, { name: 'Vue' }],
-//       },
-//     ])),
-//   };
-//   responses = await react();
-//   responses = {
-//     ...(await inquirer.prompt([
-//       {
-//         type: 'confirm',
-//         name: 'testing',
-//         message: 'Would you like to use Jest for testing',
-//         default: false,
-//       },
-//     ])),
-//     ...(await inquirer.prompt([
-//       {
-//         type: 'confirm',
-//         name: 'typescript',
-//         message: 'Do you want to use Typescript?',
-//         default: false,
-//       },
-//     ])),
-//   };
-//   return responses;
-// };
+  copyFromGit('client', responses.packageName, projectName);
+};
 
 module.exports = client;
