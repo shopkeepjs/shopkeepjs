@@ -32,8 +32,8 @@ const initialization = async () => {
       suffix: '',
       message: 'What services do you need?'.green.italic,
       choices: [
-        { name: 'Server'.blue, value: 'Server' },
-        { name: 'Client'.blue, value: 'Client', checked: true },
+        { name: 'Server'.blue, value: 'Server', checked: true },
+        { name: 'Client'.blue, value: 'Client' },
         { name: 'Docker'.blue, value: 'Docker' },
       ],
     },

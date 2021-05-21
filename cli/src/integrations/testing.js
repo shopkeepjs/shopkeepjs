@@ -1,5 +1,11 @@
 const inquirer = require('inquirer');
 
+const defineChoices = (service) => {
+  const choices = [{ name: 'Jest'.blue, value: 'jest', checked: true }];
+  if (service === 'server') choices.push({ name: 'Supertest'.blue, value: 'supertest' });
+  return choices;
+};
+
 const testing = async (service, packageJSON) => {
   const { willIncludeTesting } = await inquirer.prompt([
     {
@@ -11,6 +17,7 @@ const testing = async (service, packageJSON) => {
     },
   ]);
   if (willIncludeTesting) {
+    const choices = defineChoices(service);
     const { testingModules } = await inquirer.prompt([
       {
         type: 'checkbox',
@@ -18,10 +25,7 @@ const testing = async (service, packageJSON) => {
         prefix: '',
         suffix: '',
         message: 'What services do you need?'.green.italic,
-        choices: [
-          { name: 'Jest'.blue, value: 'jest', checked: true },
-          { name: 'Supertest'.blue, value: 'supertest' },
-        ],
+        choices,
       },
     ]);
     const testingDependencies = {

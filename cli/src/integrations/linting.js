@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 const { copyFromGit } = require('./github');
 
 const linting = async (service, packageJSON, cwd) => {
@@ -28,7 +30,8 @@ const linting = async (service, packageJSON, cwd) => {
       'eslint-config-airbnb-base': 'latest',
       'eslint-plugin-import': 'latest',
     };
-    copyFromGit('configs', '', cwd);
+    await copyFromGit('configs', '', `${cwd}/${service}`);
+    await exec('mv configs/.eslintrc.js . && rm -R configs', { cwd: `${cwd}/${service}` });
     return {
       ...packageJSON,
       scripts: { ...packageJSON.scripts, lint: 'eslint src/' },
