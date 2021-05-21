@@ -12,6 +12,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "inquirer": "^8.0.0",
+    "ora": "^5.4.0",
     "project-name-generator": "^2.1.9"
   },
   "devDependencies": {

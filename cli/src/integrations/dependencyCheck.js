@@ -26,4 +26,12 @@ async function detectSubversion() {
   return false;
 }
 
-module.exports = { detectSubversion };
+async function detectGH() {
+  try {
+    await exec('which gh');
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+module.exports = { detectSubversion, detectGH };
