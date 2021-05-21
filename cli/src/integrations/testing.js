@@ -39,6 +39,7 @@ const testing = async (service, packageJSON) => {
       devDependencies: { ...packageJSON.devDependencies, ...testingDependencies },
     };
   }
+  return null;
 };
 
 module.exports = testing;
