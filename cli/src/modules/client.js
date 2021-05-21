@@ -1,13 +1,13 @@
+const inquirer = require('inquirer');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const inquirer = require('inquirer');
-const { copyFromGit } = require('../helpers');
+const { copyFromGit } = require('../integrations/github');
 
-const client = async (projectName, isNewDirectory) => {
-  const responses = await inquirer.prompt([
+const client = async ({ cwd }) => {
+  const { packageType } = await inquirer.prompt([
     {
       type: 'list',
-      name: 'packageName',
+      name: 'packageType',
       prefix: '',
       message: 'Which frontend package would you like?'.green.italic,
       choices: [
@@ -16,10 +16,10 @@ const client = async (projectName, isNewDirectory) => {
       ],
     },
   ]);
-  console.log('   Copying the package from Github...'.white);
-  await copyFromGit('client', responses.packageName, projectName, isNewDirectory);
+  console.log('   Copying the client from Shopkeep...'.white);
+  await copyFromGit('client', packageType, cwd, 'client');
   console.log('   Installing your npm packages...'.white);
-  await exec('npm i', { cwd: isNewDirectory ? `${projectName}/client` : '/client' });
+  await exec('npm i', { cwd });
 };
 
 module.exports = client;

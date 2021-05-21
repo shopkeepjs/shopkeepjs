@@ -1,0 +1,13 @@
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Clean install dependencies
+        run: npm ci
+        working-directory: ./{SERVER_FOLDER}
+      - name: Run Jest test suite
+        run: npm test
+        working-directory: ./{SERVER_FOLDER}

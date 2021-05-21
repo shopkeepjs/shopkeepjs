@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  - package-ecosystem: 'npm'
+    directory: '{SERVER_FOLDER}'
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: 'npm'
+    directory: '{CLIENT_FOLDER}'
+    schedule:
+      interval: 'daily'

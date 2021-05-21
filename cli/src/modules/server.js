@@ -1,24 +1,21 @@
 const inquirer = require('inquirer');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+const { copyFromGit } = require('../integrations/github');
 
-let responses = {};
-
-const server = async () => {
-  responses = {
-    ...(await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'tooling',
-        message: 'Which tooling are you using?',
-        choices: [
-          { name: 'Basic Node' },
-          { name: 'Express' },
-          { name: 'Apollo' },
-          { name: 'FeathersJS' },
-        ],
-      },
-    ])),
-  };
-  return responses;
+const makeServer = async ({ cwd }) => {
+  const { tooling } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'tooling',
+      message: 'Which tooling are you using?',
+      choices: [{ name: 'Basic Node' }, { name: 'Express' }, { name: 'Apollo' }],
+    },
+  ]);
+  console.log('   Copying the server from Shopkeep...'.white);
+  await copyFromGit('server', tooling, cwd, 'server');
+  console.log('   Installing your npm packages...'.white);
+  await exec('npm i', { cwd });
 };
 
-module.exports = server;
+module.exports = makeServer;
