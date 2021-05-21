@@ -11,10 +11,10 @@ const { git } = require('./integrations/github');
 
 const start = async () => {
   await detectSubversion();
-  const responses = { ...(await initialization()) };
-  if (responses.services.includes('Client')) await makeClient(responses);
-  if (responses.services.includes('Server')) await makeServer(responses);
-  if (responses.services.includes('Docker')) await makeDocker(responses);
+  let responses = { ...(await initialization()) };
+  if (responses.services.includes('Client')) responses = { ...responses, ...(await makeClient(responses)) };
+  if (responses.services.includes('Server')) responses = { ...responses, ...(await makeServer(responses)) };
+  if (responses.services.includes('Docker')) responses = { ...responses, ...(await makeDocker(responses)) };
   if (responses.willMakeGit) await git(responses);
 };
 
