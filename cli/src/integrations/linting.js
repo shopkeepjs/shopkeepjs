@@ -38,6 +38,7 @@ const linting = async (service, packageJSON, cwd) => {
       devDependencies: { ...packageJSON.devDependencies, ...lintingDependencies },
     };
   }
+  return null;
 };
 
 module.exports = linting;

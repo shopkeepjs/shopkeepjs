@@ -1,0 +1,11 @@
+name: Test and Package the Server
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '{FOLDER}/**'
+  pull_request:
+    branches: [master]
+    paths:
+      - '{FOLDER}/**'
