@@ -8,7 +8,7 @@ const makeClient = require('./modules/client');
 const makeServer = require('./modules/server');
 const makeDocker = require('./modules/docker');
 const { git } = require('./integrations/github');
-const { ci } = require('./integrations/ci-cd');
+const { ci } = require('./integrations/ci');
 
 const start = async () => {
   await detectSubversion();
