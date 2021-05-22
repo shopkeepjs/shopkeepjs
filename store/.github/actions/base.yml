@@ -1,11 +1,11 @@
-name: Test and Package the Server
+name: Test and Package the {FOLDER} on {BRANCH}
 
 on:
   push:
-    branches: [{ BRANCH }]
+    branches: [{BRANCH}]
     paths:
       - '{FOLDER}/**'
   pull_request:
-    branches: [{ BRANCH }]
+    branches: [{BRANCH}]
     paths:
       - '{FOLDER}/**'
