@@ -1,6 +1,25 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
 const { copyFromGit } = require('./github');
+const { isMaster } = require('cluster');
+
+const writeFiles = async (cwd, { branch, service }) => {
+  fs.writeFileSync(
+    `${cwd}/.github/workflows/${branch}-${service}.yml`,
+    fs.readFileSync(`${cwd}/.github/actions/base.yml`),
+    () => {},
+  );
+  fs.appendFileSync(
+    `${cwd}/.github/workflows/${branch}-${service}.yml`,
+    fs.readFileSync(`${cwd}/.github/actions/testing.yml`),
+    () => {},
+  );
+  await exec(`sed -i 's/{BRANCH}/${branch}/g' ${branch}-${service}.yml`, { cwd: `${cwd}/.github/workflows/` });
+  await exec(`sed -i 's/{FOLDER}/${service}/g' ${branch}-${service}.yml`, { cwd: `${cwd}/.github/workflows/` });
+};
 
 const addTesting = async (cwd) => {
   const { arrayOfCI } = await inquirer.prompt([
@@ -11,20 +30,16 @@ const addTesting = async (cwd) => {
       suffix: '',
       message: 'Which branches and services would you like to include CI testing?'.green.italic,
       choices: [
-        { name: 'Master Branch - Server'.blue, value: 'master-server' },
-        { name: 'Master Branch - Client'.blue, value: 'master-client' },
-        { name: 'Dev Branch - Server'.blue, value: 'dev-server' },
-        { name: 'Dev Branch - Client'.blue, value: 'dev-client' },
+        { name: 'Master Branch - Server'.blue, value: { branch: 'master', service: 'server' } },
+        { name: 'Master Branch - Client'.blue, value: { branch: 'master', service: 'client' } },
+        { name: 'Dev Branch - Server'.blue, value: { branch: 'dev', service: 'server' } },
+        { name: 'Dev Branch - Client'.blue, value: { branch: 'dev', service: 'client' } },
       ],
     },
   ]);
+  if (arrayOfCI) fs.mkdir(`${cwd}/.github/workflows`, { recursive: true }, (err) => console.log(err));
   arrayOfCI.forEach((suite) => {
-    fs.writeFile(`${cwd}/.github/workflows/${suite}.yml`, fs.readFileSync(`${cwd}/.github/actions/base.yml`), () => {});
-    fs.appendFile(
-      `${cwd}/.github/workflows/${suite}.yml`,
-      fs.readFileSync(`${cwd}/.github/actions/testing.yml`),
-      () => {},
-    );
+    writeFiles(cwd, suite);
   });
 };
 
