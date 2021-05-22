@@ -2,10 +2,10 @@ name: Test and Package the Server
 
 on:
   push:
-    branches: [dev]
+    branches: [{ BRANCH }]
     paths:
       - '{FOLDER}/**'
   pull_request:
-    branches: [dev]
+    branches: [{ BRANCH }]
     paths:
       - '{FOLDER}/**'
