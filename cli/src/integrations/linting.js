@@ -9,7 +9,7 @@ const linting = async (service, packageJSON, cwd) => {
       type: 'confirm',
       name: 'willIncludeLinter',
       prefix: '',
-      message: `Would you like to add linting for the ${service}`.green.italic,
+      message: `Would you like to add linting for the ${service}?`.green.italic,
       default: true,
     },
   ]);

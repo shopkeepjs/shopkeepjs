@@ -46,7 +46,7 @@ const makeServer = async ({ cwd }) => {
   serverPackageJSON = await testing('server', serverPackageJSON, cwd);
   serverPackageJSON = await linting('server', serverPackageJSON, cwd);
   fs.writeFileSync(`${cwd}/${serverFolderName}/package.json`, JSON.stringify(serverPackageJSON));
-  await genMessage(['Installing', 'Installed'], () => exec('npm i', { cwd: `${cwd}/server` }));
+  // await genMessage(['Installing', 'Installed'], () => exec('npm i', { cwd: `${cwd}/server` }));
   return { serverFolderName };
 };
 

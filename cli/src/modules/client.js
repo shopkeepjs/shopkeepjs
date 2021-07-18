@@ -18,10 +18,10 @@ const questions = async () => {
       transformer: (answer) => `${answer}`.blue,
     },
   ]);
-  const { packageType } = await inquirer.prompt([
+  const { clientPackageType } = await inquirer.prompt([
     {
       type: 'list',
-      name: 'packageType',
+      name: 'clientPackageType',
       prefix: '',
       message: 'Which frontend package would you like?'.green.italic,
       choices: [
@@ -30,7 +30,7 @@ const questions = async () => {
       ],
     },
   ]);
-  return { clientFolderName, packageType };
+  return { clientFolderName, clientPackageType };
 };
 
 const genMessage = async (actionWord, fn) => {
@@ -43,16 +43,16 @@ const genMessage = async (actionWord, fn) => {
 };
 
 const client = async ({ cwd }) => {
-  const { clientFolderName, packageType } = await questions();
-  await genMessage(['Copying', 'Copied'], () => copyFromGit('client', packageType, cwd));
-  if (packageType !== 'vanilla') {
+  const { clientFolderName, clientPackageType } = await questions();
+  await genMessage(['Copying', 'Copied'], () => copyFromGit('client', clientPackageType, cwd));
+  if (clientPackageType !== 'vanilla') {
     let clientPackageJSON = JSON.parse(fs.readFileSync(`${cwd}/${clientFolderName}/package.json`, 'utf-8'));
     clientPackageJSON = await testing('client', clientPackageJSON, cwd);
     clientPackageJSON = await linting('client', clientPackageJSON, cwd);
     fs.writeFileSync(`${cwd}/${clientFolderName}/package.json`, JSON.stringify(clientPackageJSON));
     await genMessage(['Installing', 'Installed'], () => exec('npm i', { cwd: `${cwd}/client` }));
   }
-  return clientFolderName;
+  return { clientFolderName, clientPackageType };
 };
 
 module.exports = client;

@@ -12,7 +12,7 @@ const testing = async (service, packageJSON) => {
       type: 'confirm',
       name: 'willIncludeTesting',
       prefix: '',
-      message: `Would you like to add testing for the ${service}`.green.italic,
+      message: `Would you like to add testing for the ${service}?`.green.italic,
       default: true,
     },
   ]);
