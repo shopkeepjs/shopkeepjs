@@ -13,10 +13,10 @@ const { ci } = require('./integrations/ci');
 const start = async () => {
   await detectSubversion();
   let responses = { ...(await initialization()) };
-  // if (responses.services.includes('Client')) responses = { ...responses, ...(await makeClient(responses)) };
-  // if (responses.services.includes('Server')) responses = { ...responses, ...(await makeServer(responses)) };
-  // if (responses.services.includes('Docker')) responses = { ...responses, ...(await makeDocker(responses)) };
-  // if (responses.willMakeGit) await git(responses);
+  if (responses.services.includes('Client')) responses = { ...responses, ...(await makeClient(responses)) };
+  if (responses.services.includes('Server')) responses = { ...responses, ...(await makeServer(responses)) };
+  if (responses.services.includes('Docker')) responses = { ...responses, ...(await makeDocker(responses)) };
+  if (responses.willMakeGit) await git(responses);
   await ci(responses);
 };
 
