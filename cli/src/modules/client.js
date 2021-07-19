@@ -27,6 +27,7 @@ const questions = async () => {
       choices: [
         { name: 'Vanilla'.blue, value: 'vanilla' },
         { name: 'React'.blue, value: 'react-basic' },
+        { name: 'Svelte'.blue, value: 'svelte-basic' },
       ],
     },
   ]);
@@ -34,7 +35,10 @@ const questions = async () => {
 };
 
 const genMessage = async (actionWord, fn) => {
-  const message = ora({ indent: 4, text: `${actionWord[0]} the client...`.white }).start();
+  const message = ora({
+    indent: 4,
+    text: `${actionWord[0]} the client...`.white,
+  }).start();
   await fn();
   message.stopAndPersist({
     symbol: '✔',
@@ -46,7 +50,9 @@ const client = async ({ cwd }) => {
   const { clientFolderName, packageType } = await questions();
   await genMessage(['Copying', 'Copied'], () => copyFromGit('client', packageType, cwd));
   if (packageType !== 'vanilla') {
-    let clientPackageJSON = JSON.parse(fs.readFileSync(`${cwd}/${clientFolderName}/package.json`, 'utf-8'));
+    let clientPackageJSON = JSON.parse(
+      fs.readFileSync(`${cwd}/${clientFolderName}/package.json`, 'utf-8'),
+    );
     clientPackageJSON = await testing('client', clientPackageJSON, cwd);
     clientPackageJSON = await linting('client', clientPackageJSON, cwd);
     fs.writeFileSync(`${cwd}/${clientFolderName}/package.json`, JSON.stringify(clientPackageJSON));

@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY {SERVER_FOLDER}/package.json .
 
-RUN npm install
+RUN npm install --production
 
 COPY {SERVER_FOLDER} .
 
