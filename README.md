@@ -49,7 +49,7 @@ Background image credit to [emre](https://www.pexels.com/@emrecan)
 ### **Option 1** - Global Install From NPM:
 
 ```sh
-npm i -g @shopkeepjs/shopkeep
+npm i -g shopkeep
 ```
 
 The Shopkeep CLI will then be available globally. Just type `shopkeep` into your terminal and follow the on screen prompts to bootstrap your project!
