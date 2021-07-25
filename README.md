@@ -12,7 +12,7 @@ Background image credit to [emre](https://www.pexels.com/@emrecan)
   <br>
 <p>
 
-<div style="display:flex; align-items:center; justify-content:center;">
+<div align="center" style="display:flex; align-items:center; justify-content:center;">
  <strong>CSS</strong>&nbsp;  <img src="./.readme-assets/css.png">&nbsp; &nbsp; <strong>Vanilla</strong> &nbsp; <img src="./.readme-assets/javascript.png"> &nbsp; &nbsp; <strong>React</strong>&nbsp;  <img src="./.readme-assets/react.png"> &nbsp; &nbsp; <strong>Svelte</strong> &nbsp; <img src="./.readme-assets/svelte.png"> &nbsp; &nbsp; <strong>NodeJS</strong> &nbsp; <img src="./.readme-assets/nodejs.png"> &nbsp; &nbsp; <strong>Github</strong> &nbsp; <img src="./.readme-assets/github.png"> &nbsp; &nbsp; 
 </div>
 
